@@ -34,8 +34,8 @@ li, ul {
     display: flex;
     flex-direction: column;
     width: 95vw;
-    max-width: 600px;
-    height: 80%;
+    max-width: 900px;
+    height: 90%;
     background: rgba(0, 0, 0, 0.6);
     border-radius: 5px;
     padding: 10px;
@@ -48,8 +48,8 @@ li, ul {
     color: white;
     width: 100%;
     min-height: 10%;
-    padding: 10px 0px;
-    font-size: 2em;
+    padding: 10px 10px;
+    font-size: 3em;
     font-weight: 400;
     word-break: break-all;
 }
@@ -59,11 +59,10 @@ li, ul {
     height: 100%;
     gap: 1px;
     grid: repeat(5, 1fr) / repeat(4, 1fr);
-    margin-top: 10px;
 }
 
 .btn {
-    font-size: 18px;
+    font-size: 2.5em;
     font-weight: 200;
     background: rgba(0, 0, 0, 0.7);
     color: white;
@@ -78,5 +77,4 @@ li, ul {
 .equal {
     grid-column: span 2;
     background: rgba(79, 88, 90, 0.8);
-    font-size: 32px;
 }
