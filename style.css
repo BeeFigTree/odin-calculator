@@ -6,10 +6,10 @@ body {
     padding: 5px;
     align-items: center;
     justify-content: center;
-    height: 100vh;
     font-family: "Montserrat";
     background-image: url(/cool-background.png);
-    background-size: 100% 100%;
+    min-height: 95vh;
+    background-size: 100% 110%;
 }
 
 a {
