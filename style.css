@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,400;1,100;1,200&display=swap');
 
-body {
+body, html {
     box-sizing: border-box;
     display: flex;
     padding: 5px;
@@ -8,8 +8,9 @@ body {
     justify-content: center;
     font-family: "Montserrat";
     background-image: url(/cool-background.png);
-    min-height: 95vh;
-    background-size: 100% 110%;
+    height: 100%;
+    width: 100%;
+    background-size: 100% 100%;
 }
 
 a {
@@ -32,8 +33,9 @@ li, ul {
 .calculator {
     display: flex;
     flex-direction: column;
-    width: 90vw;
-    max-width: 500px;
+    width: 95vw;
+    max-width: 600px;
+    height: 70%;
     background: rgba(0, 0, 0, 0.6);
     border-radius: 5px;
     padding: 10px;
@@ -54,17 +56,15 @@ li, ul {
 
 .button-container {
     display: grid;
+    height: 100%;
     gap: 1px;
     grid: repeat(5, 1fr) / repeat(4, 1fr);
     margin-top: 10px;
-    height: 100%;
 }
 
 .btn {
     font-size: 18px;
     font-weight: 200;
-    padding: 20px 0;
-    grid-row: span 1;
     background: rgba(0, 0, 0, 0.7);
     color: white;
     cursor: pointer;
@@ -77,5 +77,6 @@ li, ul {
 
 .equal {
     grid-column: span 2;
-    background: rgba(79, 88, 90, 0.8)
+    background: rgba(79, 88, 90, 0.8);
+    font-size: 32px;
 }
