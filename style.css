@@ -78,5 +78,6 @@ li, ul {
 
 .button--equal {
     grid-column: span 2;
-    background-color: rgba(79, 88, 90, 0.8);
+    background-color: rgba(191, 198, 255, 0.644);
+    backdrop-filter: blur(20px);
 }

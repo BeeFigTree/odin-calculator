@@ -12,7 +12,7 @@ class Calculator {
 }
 
 const calculator = new Calculator(null, 0, null);
-console.log(calculator)
+
 
 const operationMap = {
     "%": "",
