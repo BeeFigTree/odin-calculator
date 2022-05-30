@@ -1,13 +1,16 @@
 // Variables
 const calculatorDisplay = document.querySelector(".calculator__display");
+const prevCalculatorDisplay = document.querySelector(".calculator__prevdisplay");
 const calculatorNumberButtons = Array.from(document.querySelectorAll(".button--number"));
 const calculatorOperations = Array.from(document.querySelectorAll(".operation"));
+const clearButtons = Array.from(document.querySelectorAll(".clear"));
 
 class Calculator {
     constructor(previousValue, currentValue, currentOperation) {
         this.previousValue = previousValue;
         this.currentValue = currentValue;
         this.currentOperation = currentOperation;
+        this.decimal = false;
         this.operationMap = {
             "%": this.percentage,
             "CE": this.clearCurrentValue,
@@ -19,69 +22,108 @@ class Calculator {
         }
     }
 
-    updateDisplay = (event) => {
-        if(!event) {
-            calculatorDisplay.innerHTML = this.previousValue + " " + this.currentOperation;
-            calculatorDisplay.value = undefined;
+    updateDisplay = () => {
+        calculatorDisplay.innerText = this.currentValue.toString();
+    }
+
+    updateSecondaryDisplay = () => {
+        if(!this.previousValue) {
+            prevCalculatorDisplay.innerText = "";
             return;
         }
+        prevCalculatorDisplay.innerText = this.previousValue.toString() + " " + this.currentOperation;
+    }
 
-        if(calculatorDisplay.value) {
-            calculatorDisplay.value = calculatorDisplay.value + event.target.value;
+    updateValue = (event) => {
+        if(!this.currentValue) {
+            this.currentValue = event.target.value;
         } else {
-            calculatorDisplay.value = event.target.value;
+            this.currentValue = this.currentValue + event.target.value;
         }
-        if(!this.currentOperation) {
-            calculatorDisplay.innerHTML = calculatorDisplay.value;
-        } else {
-            calculatorDisplay.innerHTML = calculatorDisplay.innerHTML + " " + calculatorDisplay.value;
-        }
+        this.updateDisplay();
+    }
+    
+    clearOperationHandler = (event) => {
+        this.operationMap[event.target.value]();
     }
 
     setOperation = (operation) => {
-        this.currentOperation = operation.target.value;
-        this.setPreviousValue(this.getCurrentValue());
-        this.updateDisplay();
-        console.log(this.previousValue, this.currentOperation)
+        
     }
     
     setPreviousValue = (currentValue) => {
-        this.previousValue = currentValue;
+        this.previousValue = this.getCurrentValue();
+        this.currentValue = 0;
+        this.updateDisplay();
+        this.updateSecondaryDisplay();
     }
     
     getCurrentValue = () => {
-        return calculatorDisplay.value;
+        return parseFloat(this.currentValue);
+    }
+
+    getPreviousValue = () => {
+        return parseFloat(this.previousValue);
     }
 
     addition = () => {
-        return this.previousValue + this.currentValue;
+        return this.previousValue + this.getCurrentValue();
     }
     
     subtraction = () => {
-        return this.previousValue - this.currentValue;
+        return this.previousValue - this.getCurrentValue();
     }
     
     division = () => {
-        return this.previousValue / this.currentValue;
+        return this.previousValue / this.getCurrentValue();
     }
     
     multiplication = () => {
-        return this.previousValue * this.currentValue;
+        return this.previousValue * this.getCurrentValue();
     }
     
     percentage = () => {
-        return (this.previousValue / 100) * this.currentValue;
+        return (this.previousValue / 100) * this.getCurrentValue();
+    }
+
+    clearAll = () => {
+        this.currentValue = 0;
+        this.currentOperation = null;
+        this.updateDisplay();
+        this.updateSecondaryDisplay();
+    }
+
+    clearCurrentValue = () => {
+        this.currentValue = 0;
+        this.updateDisplay();
+    }
+
+    equals = () => {
+        
+    }
+
+    decimalHandler = (event) => {
+        if(this.decimal) return;
+        this.updateValue(event);
+        this.decimal = true;
     }
 
 }
 
-const calculator = new Calculator(null, 0, null);
+const calculator = new Calculator(null, null, null);
 
 // Event listeners
 calculatorOperations.map(operation => {
-    operation.addEventListener("click", calculator.setOperation)
+    operation.addEventListener("click", calculator.setOperation);
+});
+
+clearButtons.map(button => {
+    button.addEventListener("click", calculator.clearOperationHandler);
 });
 
 calculatorNumberButtons.map(number => {
-    number.addEventListener("click", calculator.updateDisplay)
+    number.addEventListener("click", calculator.updateValue);
 });
+
+document.querySelector(".button--decimal").addEventListener("click", calculator.decimalHandler);
+document.querySelector(".button--equal").addEventListener("click", calculator.equals);
