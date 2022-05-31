@@ -23,7 +23,7 @@ class Calculator {
     }
 
     updateDisplay = () => {
-        calculatorDisplay.innerText = this.currentValue.toString();
+        calculatorDisplay.innerText = this.currentValue;
     }
 
     updateSecondaryDisplay = () => {
@@ -31,7 +31,7 @@ class Calculator {
             prevCalculatorDisplay.innerText = "";
             return;
         }
-        prevCalculatorDisplay.innerText = this.previousValue.toString() + " " + this.currentOperation;
+        prevCalculatorDisplay.innerText = this.previousValue + " " + this.currentOperation;
     }
 
     updateValue = (event) => {
@@ -51,9 +51,9 @@ class Calculator {
         
     }
     
-    setPreviousValue = (currentValue) => {
-        this.previousValue = this.getCurrentValue();
-        this.currentValue = 0;
+    setPreviousValue = () => {
+        this.previousValue = this.currentValue;
+        this.currentValue = null;
         this.updateDisplay();
         this.updateSecondaryDisplay();
     }
@@ -67,39 +67,43 @@ class Calculator {
     }
 
     addition = () => {
-        return this.previousValue + this.getCurrentValue();
+        return this.getPreviousValue() + this.getCurrentValue();
     }
     
     subtraction = () => {
-        return this.previousValue - this.getCurrentValue();
+        return this.getPreviousValue() - this.getCurrentValue();
     }
     
     division = () => {
-        return this.previousValue / this.getCurrentValue();
+        return this.getPreviousValue() / this.getCurrentValue();
     }
     
     multiplication = () => {
-        return this.previousValue * this.getCurrentValue();
+        return this.getPreviousValue() * this.getCurrentValue();
     }
     
     percentage = () => {
-        return (this.previousValue / 100) * this.getCurrentValue();
+        return (this.getPreviousValue() / 100) * this.getCurrentValue();
     }
 
     clearAll = () => {
-        this.currentValue = 0;
+        this.currentValue = null;
         this.currentOperation = null;
         this.updateDisplay();
         this.updateSecondaryDisplay();
     }
 
     clearCurrentValue = () => {
-        this.currentValue = 0;
+        this.currentValue = null;
         this.updateDisplay();
     }
 
+    equalButton = () => {
+        return this.operationMap[this.currentOperation]();
+    }
+
     equals = () => {
-        
+        return this.operationMap[this.currentOperation]().toString();
     }
 
     decimalHandler = (event) => {
